@@ -57,8 +57,14 @@ public class HomeServlet extends HttpServlet {
     systemUserDao.put(systemUser);
     
     logger.info("User created: systemUser=" + systemUser);
+    
+    findByGoogleId(systemUser);
   }
 
+  private void findByGoogleId(SystemUser systemUser) {
+    SystemUser foundSystemUser = systemUserDao.findByGoogleId(systemUser.getGoogleId());
+    System.out.println("found by GoogleId: foundSystemUser=" + foundSystemUser);
+  }
 
   private void findSomeUsers() {
     List<SystemUser> list = systemUserDao.findAll();

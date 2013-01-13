@@ -14,6 +14,9 @@ public abstract class BaseDao<T> {
 
   private final Class<T> clazz;
 
+  /**
+   * Use a EntityManager Provider for the DAO singleton
+   */
   @Inject
   protected Provider<EntityManager> entityManagerProvider;
 
@@ -44,15 +47,13 @@ public abstract class BaseDao<T> {
 
   public T get(Key key) {
     EntityManager em = entityManagerProvider.get();
-    T value = em.find(clazz, key);
-    return value;
+    return em.find(clazz, key);
   }
 
   public T get(Long id) {
     EntityManager em = entityManagerProvider.get();
     Key key = KeyFactory.createKey(clazz.getName(), id);
-    T value = em.find(clazz, key);
-    return value;
+    return em.find(clazz, key);
   }
 
 }

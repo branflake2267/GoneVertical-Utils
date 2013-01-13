@@ -16,11 +16,10 @@ public class SystemUserDao extends BaseDao<SystemUser> {
 
   public SystemUser findByGoogleId(String googleId) {
     EntityManager em = entityManagerProvider.get();
-    Query query = em
-        .createQuery("select o from " + SystemUser.class.getName() + " o where o.googleId = :googleId");
+    Query query = em.createQuery("select o from " + SystemUser.class.getName() + " o where o.googleId = :googleId");
     query.setParameter("googleId", googleId);
+    query.setMaxResults(1);
     SystemUser systemUser = (SystemUser) query.getSingleResult();
-    em.close();
     return systemUser;
   }
 
