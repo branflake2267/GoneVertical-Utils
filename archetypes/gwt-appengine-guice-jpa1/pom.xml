@@ -40,14 +40,14 @@
             </resource>
         </resources>
 
-        <testResources>
+        <!-- <testResources>
             <testResource>
                 <directory>src/test/java</directory>
             </testResource>
             <testResource>
                 <directory>src/test/resources</directory>
             </testResource>
-        </testResources>
+        </testResources> -->
 
         <plugins>
             <plugin>
