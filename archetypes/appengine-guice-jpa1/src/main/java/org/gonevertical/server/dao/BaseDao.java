@@ -3,41 +3,56 @@ package org.gonevertical.server.dao;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 public abstract class BaseDao<T> {
-  
+
   private final Class<T> clazz;
 
   @Inject
-  protected EntityManager entityManager;
+  protected Provider<EntityManager> entityManagerProvider;
 
   protected BaseDao(final Class<T> clazz) {
     this.clazz = clazz;
   }
 
-  public List<T> getAll() {
-    List<T> list = entityManager.createQuery("select o from " + clazz.getName() + " o").getResultList();
-    return list;
+  public List<T> findAll() {
+    EntityManager em = entityManagerProvider.get();
+    return em.createQuery("select o from " + clazz.getName() + " o").getResultList();
   }
-
+  
   public T put(T object) {
-    entityManager.persist(object);
+    EntityManager em = entityManagerProvider.get();
+    EntityTransaction tx = em.getTransaction();
+    try {
+      tx.begin();
+      em.merge(object);
+      tx.commit();
+    } catch (Exception exception) {
+      if (tx != null && tx.isActive()) {
+        tx.rollback();
+      }
+    } 
+    
     return object;
   }
 
   public T get(Key key) {
-    T value = entityManager.find(clazz, key);
+    EntityManager em = entityManagerProvider.get();
+    T value = em.find(clazz, key);
     return value;
   }
 
   public T get(Long id) {
+    EntityManager em = entityManagerProvider.get();
     Key key = KeyFactory.createKey(clazz.getName(), id);
-    T value = entityManager.find(clazz, key);
+    T value = em.find(clazz, key);
     return value;
   }
-  
+
 }

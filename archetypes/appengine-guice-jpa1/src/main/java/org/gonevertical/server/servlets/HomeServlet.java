@@ -1,6 +1,7 @@
 package org.gonevertical.server.servlets;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -36,11 +37,17 @@ public class HomeServlet extends HttpServlet {
       response.getWriter().println(
           "<p>Hello, " + request.getUserPrincipal().getName() + "!  You can <a href=\""
               + userService.createLogoutURL(thisURL) + "\">sign out</a>.</p>");
-      createUser(userService.getCurrentUser());
+      trySomeDbTasks(userService);
     } else {
       response.getWriter()
           .println("<p>Please <a href=\"" + userService.createLoginURL(thisURL) + "\">sign in</a>.</p>");
     }
+  }
+
+  private void trySomeDbTasks(UserService userService) {
+    createUser(userService.getCurrentUser());
+    
+    findSomeUsers();
   }
 
   private void createUser(User user) {
@@ -52,4 +59,11 @@ public class HomeServlet extends HttpServlet {
     logger.info("User created: systemUser=" + systemUser);
   }
 
+
+  private void findSomeUsers() {
+    List<SystemUser> list = systemUserDao.findAll();
+    
+    logger.info("findAllUsers list=" + list);
+  }
+  
 }
