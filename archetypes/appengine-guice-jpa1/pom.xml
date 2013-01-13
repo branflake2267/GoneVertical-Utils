@@ -200,6 +200,11 @@
             <artifactId>geronimo-jta_1.1_spec</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
 
         <!-- Datanuclues -->
         <!-- JPA1: datanucleus appengine plugin v1 (1.0.10) + datanucleus 
