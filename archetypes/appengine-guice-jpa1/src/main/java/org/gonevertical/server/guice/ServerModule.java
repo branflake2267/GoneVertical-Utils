@@ -9,11 +9,13 @@ import com.google.inject.persist.jpa.JpaPersistModule;
  * Main Server Guice Module
  */
 public class ServerModule extends AbstractModule {
-    @Override
-    protected void configure() {
-      install(new JpaPersistModule("transactions-optional"));
-      install(new ServletsModule());
-      
-      bind(JpaInitilization.class).asEagerSingleton();
-    }
+  
+  @Override
+  protected void configure() {
+    install(new JpaPersistModule("transactions-optional"));
+    install(new ServletsModule());
+
+    bind(JpaInitilization.class).asEagerSingleton();
+  }
+  
 }

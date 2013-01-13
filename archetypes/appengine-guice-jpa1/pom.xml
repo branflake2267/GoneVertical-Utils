@@ -8,7 +8,7 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>appengine-guice-jpa1</name>
-    <description>appengine-guice-jpa1</description>
+    <description>Basic App Engine setup using Guice with JPA</description>
 
     <properties>
         <gae.version>1.7.4</gae.version>

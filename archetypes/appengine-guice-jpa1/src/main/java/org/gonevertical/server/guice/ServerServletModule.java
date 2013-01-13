@@ -5,11 +5,13 @@ import org.gonevertical.server.servlets.HomeServlet;
 import com.google.inject.servlet.ServletModule;
 
 /**
- * This starts in web.xml. All requests are intercepted and sent here. 
+ * This starts in web.xml. All requests are intercepted and sent here.
  */
 public class ServerServletModule extends ServletModule {
-    @Override
-    public void configureServlets() {
-        serve("/*").with(HomeServlet.class);
-    }
+  
+  @Override
+  public void configureServlets() {
+    serve("/*").with(HomeServlet.class);
+  }
+  
 }
