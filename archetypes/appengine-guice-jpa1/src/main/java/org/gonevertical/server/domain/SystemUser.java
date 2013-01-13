@@ -3,13 +3,13 @@ package org.gonevertical.server.domain;
 import javax.persistence.Entity;
 
 @Entity
-public class User extends BaseEntity {
+public class SystemUser extends BaseEntity {
   
   private String googleId;
   
   private String name;
 
-  public User() {
+  public SystemUser() {
     googleId = "";
   }
 
@@ -29,4 +29,13 @@ public class User extends BaseEntity {
     this.name = name;
   }
 
+  @Override
+  public String toString() {
+    String s = "SystemUser(";
+    s += "googleId=" + googleId + ", ";
+    s += "name=" + name + ", ";
+    s += ")";
+    return s;
+  }
+  
 }
